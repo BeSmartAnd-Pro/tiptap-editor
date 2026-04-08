@@ -144,13 +144,3 @@ use BeSmartAndPro\TiptapEditorBundle\EasyAdmin\Field\TiptapField;
 yield TiptapField::new('content', 'Treść')
     ->setPlaceholder('Wpisz treść...');
 ```
-
-## Publishing Checklist
-
-Before pushing this as a standalone repository:
-
-- move the bundle contents so this directory becomes the repository root
-- publish the package on Composer or your private registry
-- publish the Flex recipe in your public or private recipes repository
-- keep `symfony/stimulus-bundle` in the README and composer suggestions
-- document whether your consumers use Encore, Vite or both

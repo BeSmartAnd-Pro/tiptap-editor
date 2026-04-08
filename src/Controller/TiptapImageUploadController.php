@@ -15,12 +15,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Uid\Uuid;
 
-final readonly class TiptapImageUploadController extends AbstractController
+final class TiptapImageUploadController extends AbstractController
 {
     public function __construct(
-        private TiptapEditorConfig $config,
-        private ContainerInterface $serviceLocator,
-        private SluggerInterface $slugger,
+        private readonly TiptapEditorConfig $config,
+        private readonly ContainerInterface $serviceLocator,
+        private readonly SluggerInterface $slugger,
     ) {
     }
 
