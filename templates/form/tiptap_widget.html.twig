@@ -1,0 +1,93 @@
+{% block tiptap_widget %}
+	<div
+		class="tiptap-editor"
+		{{ stimulus_controller('besmartand-pro--tiptap-editor') }}
+		data-besmartand-pro--tiptap-editor-placeholder-value="{{ tiptap_placeholder|default('Wpisz treść...') }}"
+		{% if tiptap_upload_url %}
+			data-besmartand-pro--tiptap-editor-upload-url-value="{{ tiptap_upload_url }}"
+			data-besmartand-pro--tiptap-editor-upload-token-value="{{ csrf_token('besmartand_pro_tiptap_editor_upload') }}"
+		{% endif %}
+	>
+		<div class="tiptap-editor__chrome">
+			<div class="tiptap-editor__toolbar" role="toolbar" aria-label="Narzędzia edytora">
+				<div class="tiptap-editor__group">
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="paragraph" title="Akapit" aria-label="Akapit">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-text-paragraph"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="h2" title="Nagłówek H2" aria-label="Nagłówek H2">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-type-h2"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="h3" title="Nagłówek H3" aria-label="Nagłówek H3">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-type-h3"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="bulletList" title="Lista punktowana" aria-label="Lista punktowana">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-list-ul"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="orderedList" title="Lista numerowana" aria-label="Lista numerowana">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-list-ol"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="blockquote" title="Cytat" aria-label="Cytat">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-blockquote-left"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="codeBlock" title="Blok kodu" aria-label="Blok kodu">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-code-slash"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="horizontalRule" title="Separator" aria-label="Separator">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-dash-lg"></i></span>
+					</button>
+				</div>
+
+				<div class="tiptap-editor__group">
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="bold" title="Pogrubienie" aria-label="Pogrubienie">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-type-bold"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="italic" title="Kursywa" aria-label="Kursywa">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-type-italic"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="underline" title="Podkreślenie" aria-label="Podkreślenie">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-type-underline"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="strike" title="Przekreślenie" aria-label="Przekreślenie">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-type-strikethrough"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="link" title="Link" aria-label="Link">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-link-45deg"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="clearFormatting" title="Wyczyść formatowanie" aria-label="Wyczyść formatowanie">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-eraser"></i></span>
+					</button>
+				</div>
+
+				<div class="tiptap-editor__group">
+					{% if tiptap_upload_url %}
+						<button type="button" class="tiptap-editor__button tiptap-editor__button--accent" data-action="besmartand-pro--tiptap-editor#exec" data-command="imageUpload" title="Wgraj obraz" aria-label="Wgraj obraz">
+							<span class="tiptap-editor__button-icon"><i class="bi bi-upload"></i></span>
+						</button>
+					{% endif %}
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="imageUrl" title="Dodaj obraz z URL" aria-label="Dodaj obraz z URL">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-image"></i></span>
+					</button>
+				</div>
+
+				<div class="tiptap-editor__group">
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="undo" title="Cofnij" aria-label="Cofnij">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-arrow-counterclockwise"></i></span>
+					</button>
+					<button type="button" class="tiptap-editor__button" data-action="besmartand-pro--tiptap-editor#exec" data-command="redo" title="Ponów" aria-label="Ponów">
+						<span class="tiptap-editor__button-icon"><i class="bi bi-arrow-clockwise"></i></span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="tiptap-editor__frame">
+			<div class="tiptap-editor__content" data-besmartand-pro--tiptap-editor-target="editor"></div>
+		</div>
+
+		{% if tiptap_upload_url %}
+			<input type="file" class="d-none" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" data-besmartand-pro--tiptap-editor-target="uploadInput" data-action="change->besmartand-pro--tiptap-editor#uploadSelectedImage">
+		{% endif %}
+
+		<textarea {{ block('widget_attributes') }} data-besmartand-pro--tiptap-editor-target="input">{{ value }}</textarea>
+	</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{
+    "bundles": {
+        "BeSmartAndPro\\TiptapEditorBundle\\BeSmartAndProTiptapEditorBundle": ["all"]
+    },
+    "copy-from-recipe": {
+        "config/": "%CONFIG_DIR%/",
+        "assets/": "assets/"
+    },
+    "composer-scripts": {
+        "besmartand-pro:tiptap-editor:install": "symfony-cmd"
+    },
+    "post-install-output": [
+        "Run `php bin/console besmartand-pro:tiptap-editor:install` to finish the host app setup.",
+        "Then refresh frontend dependencies with your package manager."
+    ]
+}

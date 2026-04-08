@@ -1,0 +1,37 @@
+{
+    "name": "besmartand-pro/tiptap-editor",
+    "description": "Reusable Symfony Tiptap editor bundle with optional EasyAdmin integration and Flysystem uploads.",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Jakub Roszkiewicz",
+            "email": "kuba@besmartand.pro"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "symfony/console": "^7.4",
+        "symfony/form": "^7.4",
+        "symfony/framework-bundle": "^7.4",
+        "symfony/http-foundation": "^7.4",
+        "symfony/routing": "^7.4",
+        "symfony/string": "^7.4",
+        "symfony/twig-bundle": "^7.4"
+    },
+    "suggest": {
+        "easycorp/easyadmin-bundle": "Provides the EasyAdmin Tiptap field.",
+        "oneup/flysystem-bundle": "Enable image uploads by pointing the bundle to a FilesystemOperator-compatible service.",
+        "symfony/stimulus-bundle": "Required to run the bundled Stimulus controller."
+    },
+    "autoload": {
+        "psr-4": {
+            "BeSmartAndPro\\TiptapEditorBundle\\": "src/"
+        }
+    },
+    "extra": {
+        "symfony": {
+            "bundle": "BeSmartAndPro\\TiptapEditorBundle\\BeSmartAndProTiptapEditorBundle"
+        }
+    }
+}

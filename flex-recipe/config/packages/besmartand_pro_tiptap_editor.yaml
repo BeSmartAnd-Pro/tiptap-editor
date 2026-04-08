@@ -1,0 +1,8 @@
+besmartand_pro_tiptap_editor:
+    default_placeholder: 'Wpisz treść...'
+    upload:
+        enabled: false
+        # filesystem_service: 'oneup_flysystem.images_filesystem'
+        # public_url_prefix: '/cdn/images'
+        # security_attribute: 'ROLE_ADMIN'
+        max_file_size: 8388608

@@ -1,0 +1,3 @@
+besmartand_pro_tiptap_editor:
+    resource: '@BeSmartAndProTiptapEditorBundle/src/Controller/'
+    type: attribute
