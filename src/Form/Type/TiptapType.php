@@ -12,11 +12,11 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final readonly class TiptapType extends AbstractType
+final class TiptapType extends AbstractType
 {
     public function __construct(
-        private UrlGeneratorInterface $urlGenerator,
-        private TiptapEditorConfig $config,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly TiptapEditorConfig $config,
     ) {
     }
 
