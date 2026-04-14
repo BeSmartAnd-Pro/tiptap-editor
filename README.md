@@ -92,6 +92,14 @@ to a likely entry file such as `assets/admin.ts` or `assets/app.ts`.
 
 Your Stimulus bootstrap should keep scanning `assets/controllers`.
 
+The bundle stylesheet imports Bootstrap Icons using:
+
+```scss
+@import "bootstrap-icons/font/bootstrap-icons.css";
+```
+
+This works with Vite and with current Encore/Webpack setups. Legacy `~bootstrap-icons/...` imports can still exist in host applications if their loader configuration supports them, but the bundle itself uses the bundler-neutral form so it can build cleanly in both environments.
+
 ## Vite
 
 The install command will try to add the same stylesheet import to a likely Vite entry such as `assets/main.ts` or `assets/app.ts`.
