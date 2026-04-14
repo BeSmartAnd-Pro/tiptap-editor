@@ -67,7 +67,9 @@ It will:
 - scaffold `config/packages/besmartand_pro_tiptap_editor.yaml`
 - scaffold `config/routes/besmartand_pro_tiptap_editor.yaml`
 
-If your project layout is unusual, the generated bridge files are still enough to wire things manually.
+The generated frontend files are copied into the host app instead of importing TS or SCSS through `vendor/`, which keeps both Vite and Encore builds stable.
+
+If your project layout is unusual, the copied asset files are still enough to wire things manually.
 
 ## Symfony Flex
 
@@ -105,6 +107,14 @@ This works with Vite and with current Encore/Webpack setups. Legacy `~bootstrap-
 The install command will try to add the same stylesheet import to a likely Vite entry such as `assets/main.ts` or `assets/app.ts`.
 
 Your Stimulus bootstrap should still expose controllers from `assets/controllers`.
+
+If you installed an older bundle version that generated `vendor/...` bridge imports, rerun:
+
+```bash
+php bin/console besmartand-pro:tiptap-editor:install
+```
+
+The installer will replace those legacy bridge files with local copied assets that Vite can build reliably.
 
 ## Uploads
 

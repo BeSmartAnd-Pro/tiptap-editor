@@ -45,8 +45,8 @@ final class InstallTiptapEditorCommand extends Command
         $packageJsonUpdated = $this->ensurePackageJsonDependencies($projectDir);
         $this->ensureRouteImport($projectDir);
         $this->ensureBundleConfig($projectDir);
-        $this->ensureStimulusWrapper($projectDir);
-        $this->ensureStylesheetBridge($projectDir);
+        $this->ensureStimulusControllerAsset($projectDir);
+        $this->ensureStylesheetAsset($projectDir);
         $entryFile = $this->ensureEntryImport($projectDir, $bundler);
 
         $io->success('BeSmartAnd.Pro Tiptap Editor scaffolding is ready.');
@@ -151,26 +151,34 @@ YAML;
         $this->writeIfMissing($configPath, $contents . PHP_EOL);
     }
 
-    private function ensureStimulusWrapper(string $projectDir): void
+    private function ensureStimulusControllerAsset(string $projectDir): void
     {
         $targetPath = $projectDir . '/assets/controllers/besmartand_pro/tiptap_editor_controller.ts';
-        $sourcePath = $this->kernel->getBundle('BeSmartAndProTiptapEditorBundle')->getPath() . '/assets/controllers/tiptap_editor_controller';
-        $relativeImport = $this->relativeImportPath(dirname($targetPath), $sourcePath);
-        $contents = sprintf("export { default } from '%s';\n", $relativeImport);
+        $sourcePath = $this->kernel->getBundle('BeSmartAndProTiptapEditorBundle')->getPath() . '/assets/controllers/tiptap_editor_controller.ts';
 
-        $this->ensureDirectoryExists(dirname($targetPath));
-        file_put_contents($targetPath, $contents);
+        $this->copyAssetIfMissingOrLegacy(
+            $targetPath,
+            $sourcePath,
+            [
+                "export { default } from '../../../vendor/besmartand-pro/tiptap-editor/assets/controllers/tiptap_editor_controller';\n",
+                "export { default } from '../../../../vendor/besmartand-pro/tiptap-editor/assets/controllers/tiptap_editor_controller';\n",
+            ],
+        );
     }
 
-    private function ensureStylesheetBridge(string $projectDir): void
+    private function ensureStylesheetAsset(string $projectDir): void
     {
         $targetPath = $projectDir . '/assets/styles/besmartand_pro_tiptap_editor.scss';
-        $sourcePath = $this->kernel->getBundle('BeSmartAndProTiptapEditorBundle')->getPath() . '/assets/styles/editor';
-        $relativeImport = $this->relativeImportPath(dirname($targetPath), $sourcePath);
-        $contents = sprintf("@use '%s';\n", $relativeImport);
+        $sourcePath = $this->kernel->getBundle('BeSmartAndProTiptapEditorBundle')->getPath() . '/assets/styles/editor.scss';
 
-        $this->ensureDirectoryExists(dirname($targetPath));
-        file_put_contents($targetPath, $contents);
+        $this->copyAssetIfMissingOrLegacy(
+            $targetPath,
+            $sourcePath,
+            [
+                "@use '../../../vendor/besmartand-pro/tiptap-editor/assets/styles/editor';\n",
+                "@use '../../vendor/besmartand-pro/tiptap-editor/assets/styles/editor';\n",
+            ],
+        );
     }
 
     private function ensureEntryImport(string $projectDir, string $bundler): ?string
@@ -224,6 +232,36 @@ YAML;
 
         $this->ensureDirectoryExists(dirname($path));
         file_put_contents($path, $contents);
+    }
+
+    /**
+     * Copies bundle frontend assets into the host app so Vite and Encore do not
+     * need to resolve TS/SCSS imports from composer vendor directories.
+     *
+     * Existing files are only replaced when they are missing, already identical
+     * to the bundle source, or still contain the legacy vendor bridge scaffold.
+     *
+     * @param list<string> $legacyContents
+     */
+    private function copyAssetIfMissingOrLegacy(string $targetPath, string $sourcePath, array $legacyContents): void
+    {
+        $sourceContents = (string) file_get_contents($sourcePath);
+
+        if (is_file($targetPath)) {
+            $targetContents = (string) file_get_contents($targetPath);
+
+            if ($targetContents === $sourceContents || in_array($targetContents, $legacyContents, true)) {
+                $this->ensureDirectoryExists(dirname($targetPath));
+                file_put_contents($targetPath, $sourceContents);
+
+                return;
+            }
+
+            return;
+        }
+
+        $this->ensureDirectoryExists(dirname($targetPath));
+        file_put_contents($targetPath, $sourceContents);
     }
 
     private function warnIfStimulusBundleIsMissing(string $projectDir, SymfonyStyle $io): void
