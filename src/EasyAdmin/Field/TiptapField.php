@@ -16,7 +16,7 @@ final class TiptapField implements FieldInterface
     public static function new(
         string $propertyName,
         TranslatableInterface|string|bool|null $label = null,
-    ): FieldInterface
+    ): self
     {
         return (new self())
             ->setProperty($propertyName)
